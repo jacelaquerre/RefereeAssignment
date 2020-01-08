@@ -2,8 +2,7 @@ public class Referee {
 
     private int ID;
     private String name;
-    private boolean satAvail;
-    private boolean sunAvail;
+    private Availibility aval;
     private int high;
     private int low;
     private int maxGames;
@@ -11,18 +10,16 @@ public class Referee {
     public Referee() {
         ID = 0;
         name = "Unknown";
-        satAvail = false;
-        sunAvail = false;
+        aval = new Availibility();
         high = 10;
         low = 10;
         maxGames = 0;
     }
 
-    public Referee(int ID, String name, boolean satAvail, boolean sunAvail, int high, int low, int maxGames) {
+    public Referee(int ID, String name, Availibility aval, int high, int low, int maxGames) {
         this.ID = ID;
         this.name = name;
-        this.satAvail = satAvail;
-        this.sunAvail = sunAvail;
+        this.aval = aval;
         this.high = high;
         this.low = low;
         this.maxGames = maxGames;
@@ -34,14 +31,6 @@ public class Referee {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setSatAvail(boolean satAvail) {
-        this.satAvail = satAvail;
-    }
-
-    public void setSunAvail(boolean sunAvail) {
-        this.sunAvail = sunAvail;
     }
 
     public void setHigh(int high) {
@@ -64,14 +53,6 @@ public class Referee {
         return name;
     }
 
-    public boolean isSatAvail() {
-        return satAvail;
-    }
-
-    public boolean isSunAvail() {
-        return sunAvail;
-    }
-
     public int getHigh() {
         return high;
     }
@@ -89,8 +70,7 @@ public class Referee {
         return "Referee{" +
                 "ID=" + ID +
                 ", name='" + name + '\'' +
-                ", satAvail=" + satAvail +
-                ", sunAvail=" + sunAvail +
+                ", aval=" + aval +
                 ", high=" + high +
                 ", low=" + low +
                 ", maxGames=" + maxGames +
