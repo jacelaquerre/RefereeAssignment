@@ -61,4 +61,15 @@ public class Field {
     public void setCrew(Crew crew) {
         this.crew = crew;
     }
+
+    @Override
+    public String toString() {
+        return "Field{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", numGames=" + numGames +
+                ", age=" + age +
+                ", crew=" + crew +
+                '}';
+    }
 }
