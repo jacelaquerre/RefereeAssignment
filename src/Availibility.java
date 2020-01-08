@@ -28,4 +28,11 @@ public class Availibility {
         this.sunAvail = sunAvail;
     }
 
+    @Override
+    public String toString() {
+        return "Availibility{" +
+                "satAvail=" + satAvail +
+                ", sunAvail=" + sunAvail +
+                '}';
+    }
 }

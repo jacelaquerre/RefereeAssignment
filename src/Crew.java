@@ -50,4 +50,14 @@ public class Crew {
     public void setStandBy(Referee standBy) {
         this.standBy = standBy;
     }
+
+    @Override
+    public String toString() {
+        return "Crew{" +
+                "CR=" + CR.getName() +
+                ", AR1=" + AR1.getName() +
+                ", AR2=" + AR2.getName() +
+                ", standBy=" + standBy.getName() +
+                '}';
+    }
 }

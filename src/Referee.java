@@ -70,7 +70,7 @@ public class Referee {
         return "Referee{" +
                 "ID=" + ID +
                 ", name='" + name + '\'' +
-                ", aval=" + aval +
+                ", aval=" + aval.toString() +
                 ", high=" + high +
                 ", low=" + low +
                 ", maxGames=" + maxGames +

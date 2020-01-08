@@ -69,7 +69,7 @@ public class Field {
                 ", name='" + name + '\'' +
                 ", numGames=" + numGames +
                 ", age=" + age +
-                ", crew=" + crew +
+                ", crew=" + crew.toString() +
                 '}';
     }
 }
