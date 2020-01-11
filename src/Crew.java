@@ -12,6 +12,10 @@ public class Crew {
         standBy = new Referee();
     }
 
+    public Crew(Referee CR) {
+        this.CR = CR;
+    }
+
     public Crew(Referee CR, Referee AR1, Referee AR2, Referee standBy) {
         this.CR = CR;
         this.AR1 = AR1;

@@ -9,17 +9,19 @@ public class FileIO {
 
     //Delimiters used in the CSV file
     private static final String COMMA_DELIMITER = ",";
+    //Create List for holding Referee objects
+    public static List<Referee> refList = new ArrayList<>();
+    //Create List for holding Field objects
+    public static List<Field> fieldList = new ArrayList<>();
 
-    public void fileIO() {
+    public List<Referee> refFileIO() {
         ///////////////////////// REF FILE IO ///////////////////////////////
         String refFileName = "referee.csv";
         BufferedReader br = null;
+
         try {
             //Reading the csv file
             br = new BufferedReader(new FileReader(refFileName));
-
-            //Create List for holding Employee objects
-            List<Referee> refList = new ArrayList<>();
 
             String line = "";
             //Read to skip the header
@@ -48,31 +50,29 @@ public class FileIO {
                 }
             }
             System.out.println(refList.toString());
-        }
-        catch(Exception ee) {
+        } catch (Exception ee) {
             ee.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
-                if (br != null)
+                if (br != null) {
                     br.close();
-            }
-            catch(IOException ie) {
+                }
+            } catch (IOException ie) {
                 System.out.println("Error occured while closing the BufferedReader");
                 ie.printStackTrace();
             }
         }
+        return refList;
+    }
 
-        ///////////////////////// FIELD FILE IO ///////////////////////////////
-
+    ///////////////////////// FIELD FILE IO ///////////////////////////////
+    public List<Field> fieldFileIO() {
         String fieldFileName = "schedule.csv";
         BufferedReader buff = null;
+
         try {
             //Reading the csv file
             buff = new BufferedReader(new FileReader(fieldFileName));
-
-            //Create List for holding Field objects
-            List<Field> fieldList = new ArrayList<>();
 
             String line = "";
             //Read to skip the header
@@ -92,19 +92,18 @@ public class FileIO {
                 }
             }
             System.out.println(fieldList.toString());
-        }
-        catch(Exception ee) {
+        } catch (Exception ee) {
             ee.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
-                if (buff != null)
+                if (buff != null) {
                     buff.close();
-            }
-            catch(IOException ie) {
+                }
+            } catch (IOException ie) {
                 System.out.println("Error occured while closing the BufferedReader");
                 ie.printStackTrace();
             }
         }
+        return fieldList;
     }
 }
