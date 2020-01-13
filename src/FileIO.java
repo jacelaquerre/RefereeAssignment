@@ -85,9 +85,34 @@ public class FileIO {
                     String name = fieldDetails[1];
                     int numGames = Integer.parseInt(fieldDetails[2]);
                     int age = Integer.parseInt(fieldDetails[3]);
-                    Crew crew = new Crew();
+                    String stringDay = fieldDetails[4];
+                    Field.Day day;
+                    switch(stringDay) {
+                        case "Sunday":
+                            day = Field.Day.Sunday;
+                            break;
+                        case "Monday":
+                            day = Field.Day.Monday;
+                            break;
+                        case "Tuesday":
+                            day = Field.Day.Tuesday;
+                            break;
+                        case "Wednesday":
+                            day = Field.Day.Wednesday;
+                            break;
+                        case "Thursday":
+                            day = Field.Day.Thursday;
+                            break;
+                        case "Saturday":
+                            day = Field.Day.Saturday;
+                            break;
+                        default:
+                            day = Field.Day.TBD;
+                    }
+                    List<Game> games = new ArrayList<Game>();
                     //Save the ref details in Referee object
-                    Field field = new Field(ID, name, numGames, age, crew);
+                    /* May need to change games variable here */
+                    Field field = new Field(ID, name, numGames, age, day, games);
                     fieldList.add(field);
                 }
             }
