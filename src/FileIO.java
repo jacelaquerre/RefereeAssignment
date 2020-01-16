@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,33 +88,37 @@ public class FileIO {
                     Field.Day day;
                     switch(stringDay) {
                         case "Sunday":
-                            day = Field.Day.Sunday;
+                            day = Field.Day.SUNDAY;
                             break;
                         case "Monday":
-                            day = Field.Day.Monday;
+                            day = Field.Day.MONDAY;
                             break;
                         case "Tuesday":
-                            day = Field.Day.Tuesday;
+                            day = Field.Day.TUESDAY;
                             break;
                         case "Wednesday":
-                            day = Field.Day.Wednesday;
+                            day = Field.Day.WEDNESDAY;
                             break;
                         case "Thursday":
-                            day = Field.Day.Thursday;
+                            day = Field.Day.THURSDAY;
+                            break;
+                        case "Friday":
+                            day = Field.Day.FRIDAY;
                             break;
                         case "Saturday":
-                            day = Field.Day.Saturday;
+                            day = Field.Day.SATURDAY;
                             break;
                         default:
                             day = Field.Day.TBD;
                     }
-                    List<Game> games = new ArrayList<Game>();
+                    List<Game> games = new ArrayList<>();
                     //Save the ref details in Referee object
                     /* May need to change games variable here */
                     Field field = new Field(ID, name, numGames, age, day, games);
                     fieldList.add(field);
                 }
             }
+            /////// Print out list
             System.out.println(fieldList.toString());
         } catch (Exception ee) {
             ee.printStackTrace();

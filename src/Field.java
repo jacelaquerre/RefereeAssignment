@@ -4,15 +4,20 @@ import java.util.List;
 public class Field {
 
     public enum Day {
-        Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, TBD
+        SATURDAY, SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, TBD;
+        private static Field.Day[] vals = values();
+        public Field.Day next()
+        {
+            return vals[(this.ordinal()+1) % vals.length];
+        }
     }
 
     private int ID;
     private String name;
     private int numGames;
-    public static int age;
+    public  int age;
     private Day day;
-    public static List<Game> games = new ArrayList<Game>();
+    public static List<Game> games = new ArrayList<>();
 
     public Field() {
         int ID = 0;
@@ -33,7 +38,7 @@ public class Field {
             Game game = new Game();
             games.add(game);
         }
-        this.games = games;
+        Field.games = games;
     }
 
     public int getID() {
@@ -81,7 +86,7 @@ public class Field {
     }
 
     public void setGames(List<Game> games) {
-        this.games = games;
+        Field.games = games;
     }
 
     @Override
