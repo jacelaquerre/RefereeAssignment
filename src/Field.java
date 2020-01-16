@@ -35,7 +35,8 @@ public class Field {
         this.age = age;
         this.day = day;
         for (int i = 0; i < numGames; ++i) {
-            Game game = new Game();
+            Crew crew = new Crew();
+            Game game = new Game(i+1, crew);
             games.add(game);
         }
         Field.games = games;
@@ -87,6 +88,10 @@ public class Field {
 
     public void setGames(List<Game> games) {
         Field.games = games;
+    }
+
+    public Game getGame(int index) {
+        return games.get(index);
     }
 
     @Override

@@ -65,7 +65,7 @@ public class Crew {
                 '}';
     }
 
-    public boolean filled() {
+    public boolean filledFull() {
         if (CR.getName().equals("Unknown")) {
             return false;
         }
@@ -76,6 +76,15 @@ public class Crew {
             return false;
         }
         else if (standBy.getName().equals("Unknown")) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public boolean filledSmall() {
+        if (CR.getName().equals("Unknown")) {
             return false;
         }
         else {
