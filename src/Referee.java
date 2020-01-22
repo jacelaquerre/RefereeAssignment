@@ -65,6 +65,14 @@ public class Referee {
         return maxGames;
     }
 
+    public Availibility getAval() {
+        return aval;
+    }
+
+    public void setAval(Availibility aval) {
+        this.aval = aval;
+    }
+
     @Override
     public String toString() {
         return "Referee{" +
