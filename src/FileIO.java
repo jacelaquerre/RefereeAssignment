@@ -8,19 +8,14 @@ public class FileIO {
 
     //Delimiters used in the CSV file
     private static final String COMMA_DELIMITER = ",";
-    //Create List for holding Referee objects
-    public static List<Referee> refList = new ArrayList<>();
-    //Create List for holding Field objects
-    public static List<Field> fieldList = new ArrayList<>();
 
-    public List<Referee> refFileIO() {
-        ///////////////////////// REF FILE IO ///////////////////////////////
-        String refFileName = "referee.csv";
+    ///////////////////////// REF FILE IO ///////////////////////////////
+    public void refFileIO(String filename) {
         BufferedReader br = null;
 
         try {
             //Reading the csv file
-            br = new BufferedReader(new FileReader(refFileName));
+            br = new BufferedReader(new FileReader(filename));
 
             String line = "";
             //Read to skip the header
@@ -45,10 +40,10 @@ public class FileIO {
                     int maxGames = Integer.parseInt(refereeDetails[6]);
                     //Save the ref details in Referee object
                     Referee ref = new Referee(ID, name, aval, high, low, maxGames);
-                    refList.add(ref);
+                    Tournament.refList.add(ref);
                 }
             }
-            System.out.println(refList.toString());
+
         } catch (Exception ee) {
             ee.printStackTrace();
         } finally {
@@ -61,17 +56,15 @@ public class FileIO {
                 ie.printStackTrace();
             }
         }
-        return refList;
     }
 
     ///////////////////////// FIELD FILE IO ///////////////////////////////
-    public List<Field> fieldFileIO() {
-        String fieldFileName = "schedule.csv";
+    public void fieldFileIO(String filename) {
         BufferedReader buff = null;
 
         try {
             //Reading the csv file
-            buff = new BufferedReader(new FileReader(fieldFileName));
+            buff = new BufferedReader(new FileReader(filename));
 
             String line = "";
             //Read to skip the header
@@ -86,40 +79,27 @@ public class FileIO {
                     int age = Integer.parseInt(fieldDetails[3]);
                     String stringDay = fieldDetails[4];
                     Field.Day day;
-                    switch(stringDay) {
-                        case "Sunday":
+                    switch(stringDay.toLowerCase()) {
+                        case "sunday":
                             day = Field.Day.SUNDAY;
                             break;
-                        case "Monday":
-                            day = Field.Day.MONDAY;
-                            break;
-                        case "Tuesday":
-                            day = Field.Day.TUESDAY;
-                            break;
-                        case "Wednesday":
-                            day = Field.Day.WEDNESDAY;
-                            break;
-                        case "Thursday":
-                            day = Field.Day.THURSDAY;
-                            break;
-                        case "Friday":
-                            day = Field.Day.FRIDAY;
-                            break;
-                        case "Saturday":
+                        case "saturday":
                             day = Field.Day.SATURDAY;
                             break;
                         default:
                             day = Field.Day.TBD;
                     }
                     List<Game> games = new ArrayList<>();
+                    for (int i = 0; i < numGames; ++i) {
+                        Game game = new Game();
+                        games.add(game);
+                    }
                     //Save the ref details in Referee object
                     /* May need to change games variable here */
                     Field field = new Field(ID, name, numGames, age, day, games);
-                    fieldList.add(field);
+                    Tournament.fieldList.add(field);
                 }
             }
-            /////// Print out list
-            System.out.println(fieldList.toString());
         } catch (Exception ee) {
             ee.printStackTrace();
         } finally {
@@ -132,6 +112,6 @@ public class FileIO {
                 ie.printStackTrace();
             }
         }
-        return fieldList;
+
     }
 }

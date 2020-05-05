@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Field {
 
     public enum Day {
-        SATURDAY, SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, TBD;
+        SATURDAY, SUNDAY, TBD;
         private static Field.Day[] vals = values();
         public Field.Day next()
         {
@@ -35,8 +36,7 @@ public class Field {
         this.age = age;
         this.day = day;
         for (int i = 0; i < numGames; ++i) {
-            Crew crew = new Crew();
-            Game game = new Game(i+1, crew);
+            Game game = new Game();
             games.add(game);
         }
         Field.games = games;
@@ -104,5 +104,45 @@ public class Field {
                 ", day=" + day +
                 ", games=" + games.toString() +
                 '}';
+    }
+
+    public void addField(int ID, String name, int numGames, int age, Day day, List<Game> games) {
+        Field field = new Field(ID, name, numGames, age, day, games);
+        Tournament.fieldList.add(field);
+    }
+
+    public void addField(Field field) {
+        Tournament.fieldList.add(field);
+    }
+
+    public static void addField(Scanner scan) {
+        System.out.print("Enter fields's ID: ");
+        int ID = scan.nextInt();
+        System.out.print("Enter fields's name: ");
+        String name = scan.next();
+        System.out.print("Enter the number of games on the field: ");
+        int numGames = scan.nextInt();
+        System.out.print("Enter age of players on the field: ");
+        int age = scan.nextInt();
+        System.out.print("Enter the day the field is scheduled for: ");
+        String stringDay = scan.next();
+        Field.Day day;
+        switch(stringDay.toLowerCase()) {
+            case "sunday":
+                day = Field.Day.SUNDAY;
+                break;
+            case "saturday":
+                day = Field.Day.SATURDAY;
+                break;
+            default:
+                day = Field.Day.TBD;
+        }
+        List<Game> games = new ArrayList<>();
+        for (int i = 0; i < numGames; ++i) {
+            Game game = new Game();
+            games.add(game);
+        }
+        Field field = new Field(ID, name, numGames, age, day, games);
+        Tournament.fieldList.add(field);
     }
 }

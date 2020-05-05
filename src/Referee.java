@@ -84,5 +84,14 @@ public class Referee {
                 ", maxGames=" + maxGames +
                 '}';
     }
+
+    public void addReferee(int ID, String name, Availibility aval, int high, int low, int maxGames) {
+        Referee ref = new Referee(ID, name, aval, high, low, maxGames);
+        Tournament.refList.add(ref);
+    }
+
+    public void addReferee(Referee ref) {
+        Tournament.refList.add(ref);
+    }
 }
 
