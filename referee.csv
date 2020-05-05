@@ -1,0 +1,3 @@
+﻿ID, name, satAvalibility, SunAvailibility, high, low, maxGames
+1,Jace Laquerre,TRUE,TRUE,19,12,6
+2,Ben Crane,TRUE,FALSE,18,13,8
