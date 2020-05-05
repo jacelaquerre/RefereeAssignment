@@ -50,7 +50,7 @@ public class Main {
                     Field.addField(scan);
                     break;
                 case 6:
-                    addReferee(scan);
+                    Referee.addReferee(scan);
                     break;
                 case 7:
                     break;
@@ -61,24 +61,11 @@ public class Main {
                     break;
             }
         }
-
         // Closing Scanner after the use
         scan.close();
     }
 
 
-    // int ID, String name, Availibility aval, int high, int low, int maxGames
-    public static void addReferee(Scanner scan) {
-        // TODO: check for overlap in variables
-        System.out.print("Enter Referee's ID");
-        int ID = scan.nextInt();
-        System.out.print("Enter Referee's name");
-        String name = scan.next();
-        System.out.print("Enter Referee's ID");
-        int ID = scan.nextInt();
-        System.out.print("Enter Referee's ID");
-        int ID = scan.nextInt();
-        System.out.print("Enter Referee's ID");
-        int ID = scan.nextInt();
-    }
+
+
 }

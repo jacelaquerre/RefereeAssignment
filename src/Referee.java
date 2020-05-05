@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Referee {
 
     private int ID;
@@ -93,5 +95,34 @@ public class Referee {
     public void addReferee(Referee ref) {
         Tournament.refList.add(ref);
     }
+
+    public static void addReferee(Scanner scan) {
+        // TODO: check for overlap in variables
+        System.out.print("Enter Referee's ID: ");
+        int ID = scan.nextInt();
+        System.out.print("Enter Referee's name: ");
+        String name = scan.next();
+        System.out.print("Is referee available Saturday (y/n)? ");
+        String satA = scan.next();
+        System.out.print("Is referee available Sunday (y/n)? ");
+        String sunA = scan.next();
+        boolean satB = false, sunB = false;
+        if (satA.toLowerCase().equals("y")) {
+            satB = true;
+        }
+        if (sunA.toLowerCase().equals("y")) {
+            sunB = true;
+        }
+        Availibility avail = new Availibility(satB, sunB);
+        System.out.print("Enter Referee's highest age level comfortably: ");
+        int high = scan.nextInt();
+        System.out.print("Enter Referee's lowest age level comfortably: ");
+        int low = scan.nextInt();
+        System.out.print("Enter Referee's maximum number of games");
+        int max = scan.nextInt();
+        Referee ref = new Referee(ID, name, avail, high, low, max);
+        Tournament.refList.add(ref);
+    }
+
 }
 
