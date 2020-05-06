@@ -3,22 +3,26 @@ import java.util.List;
 
 public class Tournament {
 
-    private static final int SMALL_SIDED = 12;
-    private int numFields;
+    public static final int SMALL_SIDED = 12;
+    public int numFields;
     // Create List for holding Referee objects
     public static List<Referee> refList = new ArrayList<>();
     // Create List for holding Field objects
     public static List<Field> fieldList = new ArrayList<>();
+    // List of all Games
+    public static List<Game> gameList = new ArrayList<>();
 
     public Tournament() {
         numFields = 0;
         fieldList = new ArrayList<>();
         refList = new ArrayList<>();
+        gameList = new ArrayList<>();
     }
-    public Tournament(int numFields, List<Field> fieldList, List<Referee> refList) {
+    public Tournament(int numFields, List<Field> fieldList, List<Referee> refList, List<Game> gameList) {
         this.numFields = numFields;
         Tournament.fieldList = fieldList;
         Tournament.refList = refList;
+        Tournament.gameList = gameList;
     }
 
     public int getNumFields() {
@@ -43,6 +47,14 @@ public class Tournament {
 
     public static void setRefList(List<Referee> refList) {
         Tournament.refList = refList;
+    }
+
+    public static List<Game> getGameList() {
+        return gameList;
+    }
+
+    public static void setGameList(List<Game> gameList) {
+        Tournament.gameList = gameList;
     }
 
     @Override
@@ -89,22 +101,62 @@ public class Tournament {
             }
             else {
                 for (int i = 0; i < fieldList.get(fieldIndex).getGames().size(); ++i) {
-                    if (!fieldList.get(fieldIndex).getGame(i).getCrew().filledFull()) {
-                        if (fieldList.get(fieldIndex).getGame(i).getCrew().getCR().getName().equals("Unknown")) {
-                            fieldList.get(fieldIndex).getGame(i).getCrew().setCR(ref);
-                        } else if (fieldList.get(fieldIndex).getGame(i).getCrew().getAR1().getName().equals("Unknown")) {
-                            fieldList.get(fieldIndex).getGame(i).getCrew().setAR1(ref);
-                        } else if (fieldList.get(fieldIndex).getGame(i).getCrew().getAR2().getName().equals("Unknown")) {
-                            fieldList.get(fieldIndex).getGame(i).getCrew().setAR2(ref);
-                        } else if (fieldList.get(fieldIndex).getGame(i).getCrew().getStandBy().getName().equals("Unknown")) {
-                            fieldList.get(fieldIndex).getGame(i).getCrew().setStandBy(ref);
-                        }
-                    }
+                    Game game = fieldList.get(fieldIndex).getGame(i);
+                    assignFull(game, ref);
                 }
             }
         }
         else {
             System.out.println("Cannot Assign, Referee is not available on that day.");
+        }
+    }
+
+    public void assignGame(int gameID, int refID) {
+        Referee ref = findRef(refID);
+        Field field = Game.fieldFromGame(gameID);
+        Game game = findGame(gameID);
+        assert field != null;
+        int fieldIndex = fieldList.indexOf(findField(field.getID()));
+        Field.Day fieldDay = fieldList.get(fieldIndex).getDay();
+        boolean refIsAval = false;
+        if (fieldDay == Field.Day.SATURDAY) {
+            refIsAval = ref.getAval().isSatAvail();
+        }
+        else if (fieldDay == Field.Day.SUNDAY) {
+            refIsAval = ref.getAval().isSunAvail();
+        }
+        else { // TBD case
+            if (!ref.getAval().isSatAvail() || !ref.getAval().isSunAvail()) {
+                System.out.println("Cannot Assign, Referee may not be available.");
+                refIsAval = false;
+            }
+        }
+        if(refIsAval) {
+            if (fieldList.get(fieldIndex).getAge() <= SMALL_SIDED) {
+                if (!game.getCrew().filledSmall()) {
+                    game.getCrew().setCR(ref);
+                }
+            }
+            else {
+                assignFull(game, ref);
+            }
+        }
+        else {
+            System.out.println("Cannot Assign, Referee is not available on that day.");
+        }
+    }
+
+    public static void assignFull(Game game, Referee ref) {
+        if (!game.getCrew().filledFull()) {
+            if (game.getCrew().getCR().getName().equals("Unknown")) {
+                game.getCrew().setCR(ref);
+            } else if (game.getCrew().getAR1().getName().equals("Unknown")) {
+                game.getCrew().setAR1(ref);
+            } else if (game.getCrew().getAR2().getName().equals("Unknown")) {
+                game.getCrew().setAR2(ref);
+            } else if (game.getCrew().getStandBy().getName().equals("Unknown")) {
+                game.getCrew().setStandBy(ref);
+            }
         }
     }
 
@@ -125,4 +177,14 @@ public class Tournament {
         }
         return null;
     }
+
+    public Game findGame(int ID) {
+        for (Game game : gameList) {
+            if (game.getID() == ID) {
+                return game;
+            }
+        }
+        return null;
+    }
+
 }

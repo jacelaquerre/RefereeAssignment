@@ -25,6 +25,9 @@ public class FileIO {
                 String[] refereeDetails = line.split(COMMA_DELIMITER);
                 if (refereeDetails.length > 0) {
                     int ID = Integer.parseInt(refereeDetails[0]);
+                    while (Referee.getAllRefNums().contains(ID)) {
+                        ID = Game.randInt();
+                    }
                     String name = refereeDetails[1];
                     boolean satAvail = false;
                     if (refereeDetails[2].equals("TRUE")) {
@@ -74,6 +77,9 @@ public class FileIO {
                 String[] fieldDetails = line.split(COMMA_DELIMITER);
                 if (fieldDetails.length > 0) {
                     int ID = Integer.parseInt(fieldDetails[0]);
+                    while (Field.getAllFieldNums().contains(ID)) {
+                        ID = Game.randInt();
+                    }
                     String name = fieldDetails[1];
                     int numGames = Integer.parseInt(fieldDetails[2]);
                     int age = Integer.parseInt(fieldDetails[3]);
@@ -93,8 +99,9 @@ public class FileIO {
                     for (int i = 0; i < numGames; ++i) {
                         Game game = new Game();
                         games.add(game);
+                        Game.addGameList(game);
                     }
-                    //Save the ref details in Referee object
+                    //Save the field details in Referee object
                     /* May need to change games variable here */
                     Field field = new Field(ID, name, numGames, age, day, games);
                     Tournament.fieldList.add(field);

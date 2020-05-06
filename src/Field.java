@@ -21,7 +21,11 @@ public class Field {
     public static List<Game> games = new ArrayList<>();
 
     public Field() {
-        int ID = 0;
+        int ID = Game.randInt();
+        while (getAllFieldNums().contains(ID)) {
+            ID = Game.randInt();
+        }
+        this.ID = ID;
         String name = "Unknown";
         int numGames = 0;
         int age = 10;
@@ -141,8 +145,18 @@ public class Field {
         for (int i = 0; i < numGames; ++i) {
             Game game = new Game();
             games.add(game);
+            Game.addGameList(game);
         }
         Field field = new Field(ID, name, numGames, age, day, games);
         Tournament.fieldList.add(field);
+    }
+
+    // Returns a list of all field IDs
+    public static List<Integer> getAllFieldNums() {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < Tournament.getFieldList().size(); ++i) {
+            list.add(Tournament.getFieldList().get(i).getID());
+        }
+        return list;
     }
 }

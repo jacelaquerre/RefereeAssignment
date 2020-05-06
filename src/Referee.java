@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Referee {
@@ -10,7 +12,11 @@ public class Referee {
     private int maxGames;
 
     public Referee() {
-        ID = 0;
+        int ID = Game.randInt();
+        while (getAllRefNums().contains(ID)) {
+            ID = Game.randInt();
+        }
+        this.ID = ID;
         name = "Unknown";
         aval = new Availibility();
         high = 10;
@@ -122,6 +128,15 @@ public class Referee {
         int max = scan.nextInt();
         Referee ref = new Referee(ID, name, avail, high, low, max);
         Tournament.refList.add(ref);
+    }
+
+    // Returns a list of all referee IDs
+    public static List<Integer> getAllRefNums() {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < Tournament.getRefList().size(); ++i) {
+                list.add(Tournament.getRefList().get(i).getID());
+        }
+        return list;
     }
 
 }

@@ -63,4 +63,23 @@ public class Game {
         return list;
     }
 
+    public static Field fieldFromGame(int gameID) {
+        for (int i = 0; i < Tournament.getFieldList().size(); ++i) {
+            for (int n = 0; n < Tournament.getFieldList().get(i).getGames().size(); ++n) {
+                if (Tournament.getFieldList().get(i).getGames().get(n).getID() == gameID) {
+                    return Tournament.getFieldList().get(i);
+                }
+
+            }
+        }
+        System.out.print("No game with that ID found.");
+        return null;
+    }
+
+    public static void addGameList(Game game) {
+        Tournament.gameList.add(game);
+    }
+
+
+
 }

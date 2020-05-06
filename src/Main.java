@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -13,18 +14,22 @@ public class Main {
         System.out.println("4 - Print referee list");
         System.out.println("5 - Manually add field");
         System.out.println("6 - Manually add Referee");
-        System.out.println("7 - Check if crew on a field is full or not");
+        System.out.println("7 - Check if crew on a game is full or not");
         System.out.println("8 - Assign referee to a field");
-        System.out.println(("9 - Exit"));
+        System.out.println("9 - Assign referee to a game");
+        System.out.println(("10 - Exit"));
 
         Scanner scan = new Scanner(System.in);
-        //////// TODO: Input validation?
+
         System.out.print("Enter a number: ");
         int choice = scan.nextInt();
-        //while (choice < 1 && choice > 10) {
-        //    System.out.print("Enter a number: ");
-        //    int choice = scan.nextInt();
-        //}
+        while (choice < 1 || choice > 11) {
+            System.out.print("Enter a number: ");
+            choice = scan.nextInt();
+        }
+
+        Tournament tourn = new Tournament();
+
         boolean finished = false;
         while (!finished) {
             switch (choice) {
@@ -41,10 +46,10 @@ public class Main {
                     fileIO2.refFileIO(filename2);
                     break;
                 case 3:
-                    System.out.println(Tournament.fieldList.toString());
+                    tourn.printFieldList();
                     break;
                 case 4:
-                    System.out.println(Tournament.refList.toString());
+                    tourn.printRefList();
                     break;
                 case 5:
                     Field.addField(scan);
@@ -53,10 +58,24 @@ public class Main {
                     Referee.addReferee(scan);
                     break;
                 case 7:
-                    break;
+                    System.out.print("Enter the game ID: ");
+                    int gameID = scan.nextInt();
+                    if (Crew.crewFilled(gameID, tourn)) {
+                        System.out.print("The crew for this game is assigned");
+                    }
                 case 8:
-                    break;
+                    System.out.print("Enter the field ID: ");
+                    int fieldID = scan.nextInt();
+                    System.out.print("Enter the referee's ID: ");
+                    int refID = scan.nextInt();
+                    tourn.assignField(fieldID, refID);
                 case 9:
+                    System.out.print("Enter the game ID: ");
+                    gameID = scan.nextInt();
+                    System.out.print("Enter the referee's ID: ");
+                    refID = scan.nextInt();
+                    tourn.assignGame(gameID, refID);
+                case 10:
                     finished = true;
                     break;
             }
