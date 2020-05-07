@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +44,10 @@ public class FileIO {
                     Tournament.refList.add(ref);
                 }
             }
+            System.out.println("File upload successful. Returning to main menu.");
 
+        } catch(FileNotFoundException e) {
+            System.out.println("File not found. Returning to main menu.");
         } catch (Exception ee) {
             ee.printStackTrace();
         } finally {
@@ -107,6 +108,9 @@ public class FileIO {
                     Tournament.fieldList.add(field);
                 }
             }
+            System.out.println("File upload successful. Returning to main menu.");
+        } catch(FileNotFoundException e) {
+            System.out.println("File not found. Returning to main menu.");
         } catch (Exception ee) {
             ee.printStackTrace();
         } finally {
@@ -119,6 +123,31 @@ public class FileIO {
                 ie.printStackTrace();
             }
         }
-
     }
+
+    public void fileOut() {
+        try {
+            FileWriter outFile = new FileWriter("Tournament.txt");
+
+            for (Field.Day day : Field.Day.values()) {
+                outFile.write("\n");
+                outFile.write(day + "\n");
+
+                // Find fields that have a game that day
+                for (int n = 0; Tournament.fieldList.size() > n; ++n) {
+                    if (Tournament.fieldList.get(n).getDay() == day) {
+                        outFile.write(Tournament.fieldList.get(n).toString()+ "\n");
+                        outFile.write(Tournament.fieldList.get(n).getGames().toString() + "\n");
+                    }
+                }
+            }
+            // Close file
+            outFile.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
 }

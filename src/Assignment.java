@@ -5,7 +5,7 @@ public class Assignment {
 
 
 
-    public void assignment() {
+/*    public void assignment() {
 
         // Start day on Saturday
         Field.Day currDay = Field.Day.SATURDAY;
@@ -68,21 +68,6 @@ public class Assignment {
             }
             currDay = currDay.next();
         }
-
-    }
-
-    public void assignRef(int k, int n, int j) {
-        // Check if game is within age high and low preference
-        //TODO: Need to see how to stop alg from keep assigning same ref to diff
-        // Fields and stop when getting max games
-        if ((FileIO.refList.get(k).getHigh() >= FileIO.fieldList.get(n).getAge())
-                & (FileIO.refList.get(k).getLow() <= FileIO.fieldList.get(n).getAge())) {
-            // See what position is open on crew and assign to it
-            if (FileIO.fieldList.get(n).getGame(j).getCrew().getCR().equals("Unknown")) {
-                // Assign ref to CR position
-                FileIO.fieldList.get(n).getGame(j).getCrew().setCR(FileIO.refList.get(k));
-
-            }
-        }
-    }
+*/
 }
+

@@ -41,9 +41,9 @@ public class Game {
     @Override
     public String toString() {
         return "Game{" +
-                "ID=" + ID +
-                ", crew=" + crew.toString() +
-                '}';
+                "ID = " + ID +
+                ", Crew = " + crew.toString() +
+                "}\n";
     }
 
     // Returns a random int between 1-3000 for IDs

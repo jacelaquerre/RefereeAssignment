@@ -25,6 +25,10 @@ public class Referee {
     }
 
     public Referee(int ID, String name, Availibility aval, int high, int low, int maxGames) {
+        while (getAllRefNums().contains(ID)) {
+            ID = Game.randInt();
+            System.out.print("ID given is already used. Random ID created.");
+        }
         this.ID = ID;
         this.name = name;
         this.aval = aval;

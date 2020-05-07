@@ -6,7 +6,7 @@ public class Field {
 
     public enum Day {
         SATURDAY, SUNDAY, TBD;
-        private static Field.Day[] vals = values();
+        private static final Field.Day[] vals = values();
         public Field.Day next()
         {
             return vals[(this.ordinal()+1) % vals.length];
@@ -34,6 +34,10 @@ public class Field {
     }
 
     public Field(int ID, String name, int numGames, int age, Day day, List<Game> games) {
+        while (getAllFieldNums().contains(ID)) {
+            ID = Game.randInt();
+            System.out.print("ID given is already used. Random ID created.");
+        }
         this.ID = ID;
         this.name = name;
         this.numGames = numGames;
@@ -100,14 +104,11 @@ public class Field {
 
     @Override
     public String toString() {
-        return "Field{" +
-                "ID=" + ID +
-                ", name='" + name + '\'' +
-                ", numGames=" + numGames +
-                ", age=" + age +
-                ", day=" + day +
-                ", games=" + games.toString() +
-                '}';
+        return "Field-- " +
+                "ID = " + ID +
+                ", Name = " + name +
+                ", Number of Games = " + numGames +
+                ", Age Group = " + age;
     }
 
     public void addField(int ID, String name, int numGames, int age, Day day, List<Game> games) {

@@ -59,12 +59,10 @@ public class Crew {
 
     @Override
     public String toString() {
-        return "Crew{" +
-                "CR=" + CR.getName() +
-                ", AR1=" + AR1.getName() +
-                ", AR2=" + AR2.getName() +
-                ", standBy=" + standBy.getName() +
-                '}';
+        return "CR: " + CR.getName() +
+                ", AR1: " + AR1.getName() +
+                ", AR2: " + AR2.getName() +
+                ", standBy: " + standBy.getName();
     }
 
     public boolean filledFull() {
