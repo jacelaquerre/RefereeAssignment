@@ -30,7 +30,8 @@ public class Field {
         int numGames = 0;
         int age = 10;
         Day day = Day.TBD;
-        Game games = new Game();
+        Game game = new Game();
+        Tournament.gameList.add(game);
     }
 
     public Field(int ID, String name, int numGames, int age, Day day, List<Game> games) {
@@ -46,6 +47,7 @@ public class Field {
         for (int i = 0; i < numGames; ++i) {
             Game game = new Game();
             games.add(game);
+            Tournament.gameList.add(game);
         }
         Field.games = games;
     }

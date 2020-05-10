@@ -30,9 +30,9 @@ public class Availibility {
 
     @Override
     public String toString() {
-        return "Availibility{" +
-                "satAvail=" + satAvail +
-                ", sunAvail=" + sunAvail +
+        return "{" +
+                "satAvail: " + satAvail +
+                ", sunAvail: " + sunAvail +
                 '}';
     }
 }

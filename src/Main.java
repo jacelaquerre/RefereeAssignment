@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -29,11 +26,11 @@ public class Main {
                     choice = getChoice(scan);
                     break;
                 case 3:
-                    fileIO.fileOut();
+                    fileIO.scheduleOut();
                     choice = getChoice(scan);
                     break;
                 case 4:
-                    tourn.printRefList();
+                    fileIO.printRefereeList();
                     choice = getChoice(scan);
                     break;
                 case 5:
@@ -48,7 +45,9 @@ public class Main {
                     System.out.print("Enter the game ID: ");
                     int gameID = scan.nextInt();
                     if (Crew.crewFilled(gameID, tourn)) {
-                        System.out.print("The crew for this game is assigned");
+                        System.out.print("The crew for this game is assigned.");
+                    } else {
+                        System.out.print("There are unassigned crew members for this game.");
                     }
                     choice = getChoice(scan);
                 case 8:

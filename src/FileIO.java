@@ -125,7 +125,7 @@ public class FileIO {
         }
     }
 
-    public void fileOut() {
+    public void scheduleOut() {
         try {
             FileWriter outFile = new FileWriter("Tournament.txt");
 
@@ -140,6 +140,24 @@ public class FileIO {
                         outFile.write(Tournament.fieldList.get(n).getGames().toString() + "\n");
                     }
                 }
+            }
+            // Close file
+            outFile.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public void printRefereeList() {
+        try {
+            FileWriter outFile = new FileWriter("RefereeList.txt");
+
+            outFile.write("List of Referee's signed up fo the Tournament");
+            outFile.write("\n");
+            for (int n = 0; Tournament.refList.size() > n; ++n) {
+                outFile.write(Tournament.refList.get(n).toString()+ "\n");
             }
             // Close file
             outFile.close();

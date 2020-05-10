@@ -94,15 +94,13 @@ public class Tournament {
         if(refIsAval) {
             if (fieldList.get(fieldIndex).getAge() <= SMALL_SIDED) {
                 for (int i = 0; i < fieldList.get(fieldIndex).getGames().size(); ++i) {
-                    if (!fieldList.get(fieldIndex).getGame(i).getCrew().filledSmall()) {
-                        fieldList.get(fieldIndex).getGame(i).getCrew().setCR(ref);
-                    }
+                    assignSmall(findGame(i), ref, fieldIndex);
                 }
             }
             else {
                 for (int i = 0; i < fieldList.get(fieldIndex).getGames().size(); ++i) {
                     Game game = fieldList.get(fieldIndex).getGame(i);
-                    assignFull(game, ref);
+                    assignFull(game, ref, fieldIndex);
                 }
             }
         }
@@ -133,31 +131,70 @@ public class Tournament {
         }
         if(refIsAval) {
             if (fieldList.get(fieldIndex).getAge() <= SMALL_SIDED) {
-                if (!game.getCrew().filledSmall()) {
-                    game.getCrew().setCR(ref);
-                }
+                assignSmall(game, ref, fieldIndex);
+            } else {
+                assignFull(game, ref, fieldIndex);
             }
-            else {
-                assignFull(game, ref);
-            }
-        }
-        else {
+        } else {
             System.out.println("Cannot Assign, Referee is not available on that day.");
         }
     }
 
-    public static void assignFull(Game game, Referee ref) {
+    public static void assignFull(Game game, Referee ref, int fieldIndex) {
         if (!game.getCrew().filledFull()) {
-            if (game.getCrew().getCR().getName().equals("Unknown")) {
-                game.getCrew().setCR(ref);
-            } else if (game.getCrew().getAR1().getName().equals("Unknown")) {
-                game.getCrew().setAR1(ref);
-            } else if (game.getCrew().getAR2().getName().equals("Unknown")) {
-                game.getCrew().setAR2(ref);
-            } else if (game.getCrew().getStandBy().getName().equals("Unknown")) {
-                game.getCrew().setStandBy(ref);
+            if (checkRefFactors(ref, fieldIndex)) {
+                if (game.getCrew().getCR().getName().equals("Unknown")) {
+                    game.getCrew().setCR(ref);
+                } else if (game.getCrew().getAR1().getName().equals("Unknown")) {
+                    game.getCrew().setAR1(ref);
+                } else if (game.getCrew().getAR2().getName().equals("Unknown")) {
+                    game.getCrew().setAR2(ref);
+                } else if (game.getCrew().getStandBy().getName().equals("Unknown")) {
+                    game.getCrew().setStandBy(ref);
+                }
+                Referee.updateGameCount(ref, fieldList.get(fieldIndex).getDay());
             }
+        } else {
+            System.out.println("Cannot Assign, game is already fully assigned.");
         }
+    }
+    public static void assignSmall(Game game, Referee ref, int fieldIndex) {
+        if (!game.getCrew().filledSmall()) {
+            if (checkRefFactors(ref, fieldIndex)) {
+                game.getCrew().setCR(ref);
+                Referee.updateGameCount(ref, fieldList.get(fieldIndex).getDay());
+            }
+        } else {
+            System.out.println("Cannot Assign, game is already fully assigned.");
+        }
+    }
+
+    // Checks if the game is in the referee's comfort level and also if
+    // it does not exceed their max games per day
+    public static boolean checkRefFactors(Referee ref, int fieldIndex) {
+        int age = fieldList.get(fieldIndex).getAge();
+        Field.Day day = fieldList.get(fieldIndex).getDay();
+        if (age < ref.getHigh() || age > ref.getLow()) {
+            if (day == Field.Day.SATURDAY) {
+                if (ref.getSatNumGames() > ref.getMaxGames()) {
+                    System.out.println("Cannot Assign, referee has reached their " +
+                            "maximum number of games for this day.");
+                    return false;
+                }
+            } else if (day == Field.Day.SUNDAY) {
+                if (ref.getSunNumGames() > ref.getMaxGames()) {
+                    System.out.println("Cannot Assign, referee has reached their " +
+                            "maximum number of games for this day.");
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            System.out.println("Cannot Assign, Player age is not in referee's comfort zone.");
+            return false;
+        }
+        return false;
     }
 
     public Referee findRef(int ID) {

@@ -10,6 +10,8 @@ public class Referee {
     private int high;
     private int low;
     private int maxGames;
+    public int satNumGames;
+    public int sunNumGames;
 
     public Referee() {
         int ID = Game.randInt();
@@ -22,6 +24,8 @@ public class Referee {
         high = 10;
         low = 10;
         maxGames = 0;
+        satNumGames = 0;
+        sunNumGames = 0;
     }
 
     public Referee(int ID, String name, Availibility aval, int high, int low, int maxGames) {
@@ -35,6 +39,8 @@ public class Referee {
         this.high = high;
         this.low = low;
         this.maxGames = maxGames;
+        satNumGames = 0;
+        sunNumGames = 0;
     }
 
     public void setID(int ID) {
@@ -85,15 +91,31 @@ public class Referee {
         this.aval = aval;
     }
 
+    public int getSatNumGames() {
+        return satNumGames;
+    }
+
+    public void setSatNumGames(int satNumGames) {
+        this.satNumGames = satNumGames;
+    }
+
+    public int getSunNumGames() {
+        return sunNumGames;
+    }
+
+    public void setSunNumGames(int sunNumGames) {
+        this.sunNumGames = sunNumGames;
+    }
+
     @Override
     public String toString() {
         return "Referee{" +
-                "ID=" + ID +
-                ", name='" + name + '\'' +
-                ", aval=" + aval.toString() +
-                ", high=" + high +
-                ", low=" + low +
-                ", maxGames=" + maxGames +
+                "ID: " + ID +
+                ", Name: " + name +
+                ", Availability:" + aval.toString() +
+                ", Highest Age: " + high +
+                ", Lowest Age: " + low +
+                ", Max games per Day: " + maxGames +
                 '}';
     }
 
@@ -141,6 +163,14 @@ public class Referee {
                 list.add(Tournament.getRefList().get(i).getID());
         }
         return list;
+    }
+
+    public static void updateGameCount(Referee ref, Field.Day day) {
+        if (day == Field.Day.SATURDAY) {
+            ref.setSatNumGames(ref.getSatNumGames() + 1);
+        } else {
+            ref.setSunNumGames(ref.getSunNumGames() + 1);
+        }
     }
 
 }
