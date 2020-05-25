@@ -150,7 +150,7 @@ public class Referee {
         int high = scan.nextInt();
         System.out.print("Enter Referee's lowest age level comfortably: ");
         int low = scan.nextInt();
-        System.out.print("Enter Referee's maximum number of games");
+        System.out.print("Enter Referee's maximum number of games: ");
         int max = scan.nextInt();
         Referee ref = new Referee(ID, name, avail, high, low, max);
         Tournament.refList.add(ref);

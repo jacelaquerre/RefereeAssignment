@@ -44,12 +44,16 @@ public class Main {
                 case 7:
                     System.out.print("Enter the game ID: ");
                     int gameID = scan.nextInt();
-                    if (Crew.crewFilled(gameID, tourn)) {
-                        System.out.print("The crew for this game is assigned.");
-                    } else {
-                        System.out.print("There are unassigned crew members for this game.");
+                    try {
+                        if (Crew.crewFilled(gameID, tourn)) {
+                            System.out.print("The crew for this game is assigned.");
+                        } else {
+                            System.out.print("There are unassigned crew members for this game.");
+                        }
+                        choice = getChoice(scan);
+                    } catch (NullPointerException e) {
+                        choice = getChoice(scan);
                     }
-                    choice = getChoice(scan);
                 case 8:
                     System.out.print("Enter the field ID: ");
                     int fieldID = scan.nextInt();
@@ -78,7 +82,7 @@ public class Main {
         System.out.println("1 - Load field list from csv file");
         System.out.println("2 - Load referee list from csv file");
         System.out.println("3 - Output Tournament schedule to txt file");
-        System.out.println("4 - Print referee list");
+        System.out.println("4 - Output referee list to a txt file");
         System.out.println("5 - Manually add field");
         System.out.println("6 - Manually add Referee");
         System.out.println("7 - Check if crew on a game is full or not");
